@@ -14,11 +14,13 @@
     },
     {
       "lean": "lemma example3 (a b : mynat) (h : succ a = b) : succ(succ(a)) = succ(b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw ← h,\r\nrefl,"
     },
     {
       "lean": "lemma add_succ_zero (a : mynat) : a + succ(0) = succ(a) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw add_succ,\r\nrw add_zero,\r\nrefl,"
     },
     {
       "lean": "lemma zero_add (n : mynat) : 0 + n = n :=\n",
