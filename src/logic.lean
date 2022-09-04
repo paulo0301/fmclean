@@ -18,13 +18,32 @@ end
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
-  sorry,  
+  by_cases h : P,
+  {
+    intro P'',
+    exact h,
+  }, 
+  {
+    intro P',
+    contradiction,
+  },
 end
 
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
-  sorry,
+  split,
+  by_cases h : P,
+  {
+    intro P'',
+    exact h,
+  }, 
+  {
+    intro P',
+    contradiction,
+  },
+  intros P P',
+  contradiction,
 end
 
 ------------------------------------------------
@@ -92,13 +111,23 @@ end
 theorem impl_as_contrapositive_converse :
   (¬Q → ¬P) → (P → Q)  :=
 begin
-  sorry,
+  intros D P,
+  by_contra Q,
+  have P' := D Q,
+  contradiction,
 end
 
 theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
-  sorry,
+  split,
+  intros D Q' P,
+  have Q := D  P,
+  contradiction,
+  intros D P,
+  by_contra Q,
+  have P' := D Q,
+  contradiction,
 end
 
 
