@@ -11,13 +11,14 @@ variables P Q R : Prop
 theorem doubleneg_intro :
   P → ¬¬P  :=
 begin
-  sorry,
+  intros P P',
+  contradiction,
 end
 
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
-  sorry,
+  sorry,  
 end
 
 theorem doubleneg_law :
@@ -33,13 +34,22 @@ end
 theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  :=
 begin
-  sorry,
+  intro D,
+  cases D,
+  right,
+  apply D,
+  left,
+  apply D, 
 end
 
 theorem conj_comm :
   (P ∧ Q) → (Q ∧ P)  :=
 begin
-  sorry,
+  intro D,
+  cases D,
+  split,
+  apply D_right,
+  apply D_left,
 end
 
 
@@ -50,13 +60,20 @@ end
 theorem impl_as_disj_converse :
   (¬P ∨ Q) → (P → Q)  :=
 begin
-  sorry,
+  intro D,
+  intro P,
+  cases D,
+  contradiction,
+  apply D,
 end
 
 theorem disj_as_impl :
   (P ∨ Q) → (¬P → Q)  :=
 begin
-  sorry,
+  intros D P',
+  cases D,
+  contradiction,
+  apply D,
 end
 
 
@@ -67,7 +84,9 @@ end
 theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
-  sorry,
+  intros D Q' P,
+  have Q := D  P,
+  contradiction, 
 end
 
 theorem impl_as_contrapositive_converse :
