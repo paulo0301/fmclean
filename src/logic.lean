@@ -138,7 +138,18 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  sorry,
+  intro D,
+  by_cases h : P,
+  {
+    apply D,
+    left,
+    exact h,
+  },
+  {
+    apply D,
+    right,
+    exact h,
+  },
 end
 
 
@@ -160,13 +171,25 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intros ha hb,
+  cases hb,
+  cases ha,
+  apply hb_left,
+  contradiction,
+  apply hb_right,
+  contradiction,
 end
 
 theorem conj_as_negdisj :
   P∧Q → ¬(¬P∨¬Q)  :=
 begin
-  sorry,
+  intros ha hb,
+  cases ha,
+  cases hb,
+  have boom := hb ha_left,
+  exact boom,
+  have boom := hb ha_right,
+  exact boom,
 end
 
 
@@ -177,13 +200,26 @@ end
 theorem demorgan_disj :
   ¬(P∨Q) → (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  intro D,
+  split,
+  intro P,
+  apply D,
+  left,
+  exact P,
+  intro Q,
+  apply D,
+  right,
+  exact Q,
 end
 
 theorem demorgan_disj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  :=
 begin
-  sorry,
+  intros ha hb,
+  cases ha with ha_l ha_r,
+  cases hb,
+  contradiction,
+  contradiction,
 end
 
 theorem demorgan_conj :
