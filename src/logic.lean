@@ -518,37 +518,81 @@ variables P Q : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  sorry,
+  intros h1 x p,
+  apply h1,
+  existsi x,
+  exact p,
 end
 
 theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h2 with x px,
+  have h : ¬P x := h1 x,
+  contradiction,
 end
 
 theorem demorgan_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
-  sorry,
+  intros h1,
+  by_contradiction h2,
+  apply h1,
+  intro u,
+  by_contradiction h3,
+  apply h2,
+  existsi u,
+  assumption,
 end
 
 theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h1 with x npx,
+  have px : P x := h2 x,
+  contradiction,
 end
 
 theorem demorgan_forall_law :
   ¬(∀x, P x) ↔ (∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  {
+    intros h1,
+    by_contradiction h2,
+    apply h1,
+    intro u,
+    by_contradiction h3,
+    apply h2,
+    existsi u,
+    assumption,
+  },
+  {
+    intros h1 h2,
+    cases h1 with x npx,
+    have px : P x := h2 x,
+    contradiction,
+  }
 end
 
 theorem demorgan_exists_law :
   ¬(∃x, P x) ↔ (∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  {
+    intros h1 x p,
+    apply h1,
+    existsi x,
+    exact p,
+  },
+  {
+    intros h1 h2,
+    cases h2 with x px,
+    have h : ¬P x := h1 x,
+    contradiction,
+  }
 end
 
 
@@ -559,37 +603,83 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h1 with x px,
+  have npx : ¬P x := h2 x,
+  contradiction,
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h2 with x npx,
+  have px : P x := h1 x,
+  contradiction,
 end
 
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  sorry,
+  intros h1 x,
+  by_contradiction npu,
+  apply h1,
+  existsi x,
+  assumption,  
 end
 
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro h1,
+  by_contradiction nepx,
+  apply h1,
+  intros x,
+  by_contradiction px,
+  apply nepx,
+  existsi x,
+  assumption,
 end
 
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  {
+    intros h1 h2,
+    cases h2 with x npx,
+    have px : P x := h1 x,
+    contradiction,
+  },
+  {
+    intros h1 x,
+    by_contradiction npu,
+    apply h1,
+    existsi x,
+    assumption,
+  }
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  {
+    intros h1 h2,
+    cases h1 with x px,
+    have npx : ¬P x := h2 x,
+    contradiction,
+  },
+  {
+    intro h1,
+    by_contradiction nepx,
+    apply h1,
+    intros x,
+    by_contradiction px,
+    apply nepx,
+    existsi x,
+    assumption,
+  }
 end
 
 
