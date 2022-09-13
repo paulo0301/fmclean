@@ -746,20 +746,55 @@ end
 theorem forall_conj_as_conj_forall :
   (∀x, P x ∧ Q x) → (∀x, P x) ∧ (∀x, Q x)  :=
 begin
-  sorry,
+  intro h1,
+  split,
+  {
+    intro x,
+    have h : P x ∧ Q x := h1 x,
+    cases h,
+    assumption,
+  },
+  {
+    intro x,
+    have h : P x ∧ Q x := h1 x,
+    cases h,
+    assumption,
+  }
 end
 
 theorem forall_conj_as_conj_forall_converse :
   (∀x, P x) ∧ (∀x, Q x) → (∀x, P x ∧ Q x)  :=
 begin
-  sorry,
+  intro h1,
+  intro x,
+  cases h1,
+  split,
+  {
+    have h : P x := h1_left x,
+    assumption,
+  },
+  {
+    have h : Q x := h1_right x,
+    assumption,
+  }
 end
 
 
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intros h1 x,
+  cases h1,
+  {
+    left,
+    have h : P x := h1 x,
+    assumption,
+  },
+  {
+    right,
+    have h : Q x := h1 x,
+    assumption,
+  }
 end
 
 
