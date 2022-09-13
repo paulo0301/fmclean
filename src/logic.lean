@@ -160,7 +160,14 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
-  sorry,
+  intros h1 np,
+  by_cases h : (P→Q),
+  have p : P := h1 h,
+  contradiction,
+  have h2 : (P → Q),
+  intro P,
+  contradiction,
+  contradiction,
 end
 
 
@@ -225,25 +232,84 @@ end
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  intro h1,
+  by_contradiction h2,
+  have hp : (P∧Q),
+  split,
+  by_contradiction h3,
+  apply h2,
+  right,
+  assumption,
+  by_contradiction h3,
+  apply h2,
+  left,
+  assumption,
+  apply h1,
+  contradiction,
 end
 
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h2,
+  cases h1,
+  contradiction,
+  contradiction,
 end
 
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  split,
+  {
+    intro h1,
+    by_contradiction h2,
+    have hp : (P∧Q),
+    split,
+    by_contradiction h3,
+    apply h2,
+    right,
+    assumption,
+    by_contradiction h3,
+    apply h2,
+    left,
+    assumption,
+    apply h1,
+    contradiction,
+  },
+  {
+    intros h1 h2,
+    cases h2,
+    cases h1,
+    contradiction,
+    contradiction,
+  }
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  {
+    intro D,
+    split,
+    intro P,
+    apply D,
+    left,
+    exact P,
+    intro Q,
+    apply D,
+    right,
+    exact Q,
+  },
+  {
+    intros ha hb,
+    cases ha with ha_l ha_r,
+    cases hb,
+    contradiction,
+    contradiction,
+  }
 end
 
 ------------------------------------------------
@@ -253,25 +319,77 @@ end
 theorem distr_conj_disj :
   P∧(Q∨R) → (P∧Q)∨(P∧R)  :=
 begin
-  sorry,
+  intro h1,
+  cases h1,
+  cases h1_right,
+  left,
+  split,
+  assumption,
+  assumption,
+  right,
+  split,
+  assumption,
+  assumption,
 end
 
 theorem distr_conj_disj_converse :
   (P∧Q)∨(P∧R) → P∧(Q∨R)  :=
 begin
-  sorry,
+  intro h1,
+  cases h1,
+  {
+    cases h1,
+    split,
+    assumption,
+    left,
+    assumption,
+  },
+  {
+    cases h1,
+    split,
+    assumption,
+    right,
+    assumption,
+  }
 end
 
 theorem distr_disj_conj :
   P∨(Q∧R) → (P∨Q)∧(P∨R)  :=
 begin
-  sorry,
+  intro h1,
+  cases h1,
+  {
+    split,
+    left,
+    assumption,
+    left,
+    assumption,
+  },
+  {
+    cases h1,
+    split,
+    right,
+    assumption,
+    right,
+    assumption,
+  }
 end
 
 theorem distr_disj_conj_converse :
   (P∨Q)∧(P∨R) → P∨(Q∧R)  :=
 begin
-  sorry,
+  intro h,
+  cases h with hl hr,
+  cases hl,
+  left,
+  assumption,
+  cases hr,
+  left,
+  assumption,
+  right,
+  split,
+  assumption,
+  assumption,
 end
 
 
@@ -282,13 +400,21 @@ end
 theorem curry_prop :
   ((P∧Q)→R) → (P→(Q→R))  :=
 begin
-  sorry,
+  intros h1 h2 h3,
+  apply h1,
+  split,
+  assumption,
+  assumption,
 end
 
 theorem uncurry_prop :
   (P→(Q→R)) → ((P∧Q)→R)  :=
 begin
-  sorry,
+  intros h1 h2,
+  cases h2,
+  apply h1,
+  assumption,
+  assumption,
 end
 
 
@@ -299,7 +425,8 @@ end
 theorem impl_refl :
   P → P  :=
 begin
-  sorry,
+  intro P,
+  exact P,
 end
 
 ------------------------------------------------
@@ -309,37 +436,67 @@ end
 theorem weaken_disj_right :
   P → (P∨Q)  :=
 begin
-  sorry,
+  intro P,
+  left,
+  exact P,
 end
 
 theorem weaken_disj_left :
   Q → (P∨Q)  :=
 begin
-  sorry,
+  intro Q,
+  right,
+  exact Q,
 end
 
 theorem weaken_conj_right :
   (P∧Q) → P  :=
 begin
-  sorry,
+  intro h,
+  cases h,
+  assumption,
 end
 
 theorem weaken_conj_left :
   (P∧Q) → Q  :=
 begin
-  sorry,
+  intro h,
+  cases h,
+  assumption,
 end
 
 theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
-  sorry,
+  split,
+  {
+    intro PD,
+    cases PD,
+    assumption,
+  },
+  {
+    intro P,
+    split,
+    assumption,
+    assumption,
+  }
 end
 
 theorem disj_idempot :
   (P∨P) ↔ P  :=
 begin
-  sorry,
+  split,
+  {
+    intro P2,
+    cases P2,
+    assumption,
+    assumption,
+  },
+  {
+    intro P,
+    left,
+    assumption,
+  }
 end
 
 end propositional
