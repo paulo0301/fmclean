@@ -99,35 +99,42 @@
     },
     {
       "lean": "lemma zero_pow_zero : (0 : mynat) ^ (0 : mynat) = 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw pow_zero,\r\nrefl,"
     },
     {
       "lean": "lemma zero_pow_succ (m : mynat) : (0 : mynat) ^ (succ m) = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw pow_succ,\r\nrw mul_zero,\r\nrefl,"
     },
     {
       "lean": "lemma pow_one (a : mynat) : a ^ (1 : mynat) = a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\r\nrw pow_succ,\r\nrw pow_zero,\r\nrw one_mul,\r\nrefl,"
     },
     {
       "lean": "lemma one_pow (m : mynat) : (1 : mynat) ^ m = 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with k h,\r\nrefl,\r\nrw pow_succ,\r\nrw h,\r\nrefl,"
     },
     {
       "lean": "lemma pow_add (a m n : mynat) : a ^ (m + n) = a ^ m * a ^ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with h hd,\r\nrwa [add_zero, pow_zero, mul_one],\r\nrw add_succ,\r\nrepeat {rw pow_succ},\r\nsimp,\r\nrw hd,\r\nrefl,"
     },
     {
       "lean": "lemma mul_pow (a b n : mynat) : (a * b) ^ n = a ^ n * b ^ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with k hd,\r\nrepeat {rw pow_zero},\r\nrefl,\r\nrepeat {rw pow_succ},\r\nsimp,\r\nrwa [hd],"
     },
     {
       "lean": "lemma pow_pow (a m n : mynat) : (a ^ m) ^ n = a ^ (m * n) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with k hd,\r\nrw mul_zero,\r\nrepeat {rw pow_zero},\r\nrw pow_succ,\r\nrw mul_succ,\r\nsimp,\r\nrw pow_add,\r\nrw hd,\r\nrefl,"
     },
     {
       "lean": "lemma add_squared (a b : mynat) :\n  (a + b) ^ (2 : mynat) = a ^ (2 : mynat) + b ^ (2 : mynat) + 2 * a * b :=\n",
-      "editorText": "sorry"
+      "editorText": "induction b with k hd,\r\nrw mul_zero,\r\nrepeat {rw add_zero},\r\nrw two_eq_succ_one,\r\nrw zero_pow_succ,\r\nrw add_zero,\r\nrefl,\r\nrw two_eq_succ_one,\r\nrw one_eq_succ_zero,\r\nrepeat {rw pow_succ},\r\nsimp,\r\nrepeat {rw pow_zero},\r\nrepeat {rw mul_one},\r\nrw add_succ,"
     },
     {
       "lean": "example (P Q : Type) (p : P) (h : P → Q) : Q :=\n",
@@ -242,7 +249,7 @@
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
       "isSolved": true,
-      "editorText": "intros hpq hqr, \r\nsplit,\r\nintro p,\r\napply hqr.1,\r\napply hpq.1,\r\nexact p,\r\nintro r,\r\napply hpq.2,\r\napply hqr.2,\r\nexact r,"
+      "editorText": "intro h,\r\ncases h with hpq hqp,\r\nintro f,\r\ncases f with hqr hrq,\r\nsplit,\r\nintro p,\r\napply hqr,\r\napply hpq,\r\nexact p,\r\nintro r,\r\napply hqp,\r\napply hrq,\r\nexact r,"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
