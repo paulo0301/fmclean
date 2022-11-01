@@ -414,31 +414,38 @@
     },
     {
       "lean": "theorem add_le_add_right {a b : mynat} : a ≤ b → ∀ t, (a + t) ≤ (b + t) :=\n",
-      "editorText": ""
+      "isSolved": true,
+      "editorText": "intro h,\r\nintro t,\r\ncases h with d hd,\r\nrw le_iff_exists_add,\r\nrw hd,\r\nuse d,\r\nsimp,"
     },
     {
       "lean": "theorem le_of_succ_le_succ (a b : mynat) : succ a ≤ succ b → a ≤ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro hi,\r\ncases hi with c hc,\r\nrw succ_add at hc, \r\nrw succ_eq_succ_iff at hc,\r\nuse c,\r\nexact hc,"
     },
     {
       "lean": "theorem not_succ_le_self (a : mynat) : ¬ (succ a ≤ a) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction a with k hk,\r\nintro h,\r\ncases h with c hc,\r\nrw succ_add 0 c at hc,\r\nrw zero_add at hc,\r\napply succ_ne_zero c,\r\nsymmetry,\r\nexact hc,\r\nintro h,\r\nhave hq := le_of_succ_le_succ (succ k) k h,\r\napply hk,\r\nexact hq,"
     },
     {
       "lean": "theorem add_le_add_left {a b : mynat} (h : a ≤ b) (t : mynat) :\n  t + a ≤ t + b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases h with x hx,\r\nuse x,\r\nrw hx,\r\nrw add_assoc t a x,\r\nrefl,"
     },
     {
       "lean": "lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with h1 h2,\r\ncases h1 with c hc,\r\ncases c,\r\nrw add_zero at hc,\r\nrw hc,\r\nexfalso,\r\napply h2,\r\nuse 0,\r\nrw add_zero,\r\nsymmetry,\r\nexact hc,\r\nrw hc,\r\nuse c,\r\nrwa [add_succ, succ_add],"
     },
     {
       "lean": "lemma lt_aux_two (a b : mynat) : succ a ≤ b → a ≤ b ∧ ¬ (b ≤ a) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro hi,\r\ncases hi with x hx,\r\nsplit,\r\nuse succ x,\r\nrw succ_add at hx,\r\nrw add_succ,\r\nexact hx,\r\nrw hx,\r\nintro hi,\r\nhave q := add_le_add_right hi x,\r\ncases q with y hy,\r\napply not_succ_le_self (a + x),\r\nuse x + y,\r\nrw add_assoc at hy,\r\nrw succ_add at hy,\r\nexact hy,"
     },
     {
       "lean": "lemma lt_iff_succ_le (a b : mynat) : a < b ↔ succ a ≤ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\nintro h,\r\napply lt_aux_one,\r\nexact h,\r\nintro h,\r\napply lt_aux_two,\r\nexact h,"
     }
   ]
 }
